@@ -19,10 +19,9 @@ download_uris = [
 failed_uris = []
 no_of_downloads = len(download_uris)
 
-def create_downloads_folder(dest_folder):
+def create_downloads_folder(dest_folder="downloads"):
     
     try:
-        os.mkdir("downloads222")
         if not os.path.exists(dest_folder):
             os.mkdir(dest_folder)  # create folder if it does not exist
 
@@ -30,9 +29,9 @@ def create_downloads_folder(dest_folder):
         print("An error has occurred, check you have permission to create this folder")
     else:
         print("Downloads folder created, continuing with downloads...")
-        download_files()
+        download_files(dest_folder)
     
-def download_files():
+def download_files(dest_folder):
     for uri in range(no_of_downloads):
         try:
             req = requests.get(download_uris[uri], stream=True)
@@ -47,10 +46,11 @@ def download_files():
             
             filename = myutils.get_filename(url)
             
+            path = os.path.join(dest_folder, filename)
 
             if req.headers.get('content-type') == 'application/zip':
              
-                with open("file_" + filename, "wb") as file:
+                with open(path, "wb") as file:
                     file.write(req.content)
                 
 
@@ -63,6 +63,5 @@ def download_files():
 
 if __name__ == '__main__':
     
-    create_downloads_folder("downloads222")
-    download_files()
+    create_downloads_folder("downloads")
     
