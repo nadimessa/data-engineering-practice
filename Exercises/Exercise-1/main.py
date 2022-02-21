@@ -47,8 +47,6 @@ def download_files():
             
             filename = myutils.get_filename(download_uris[uri])
             
-            print(filename)
-            type(filename)
 
             if req.headers.get('content-type') == 'application/zip':
              
