@@ -45,7 +45,7 @@ def download_files():
         if status == 200:
             print(f"Successfully downloaded {url}")
             
-            filename = myutils.get_filename(download_uris[uri])
+            filename = myutils.get_filename(url)
             
 
             if req.headers.get('content-type') == 'application/zip':
@@ -55,8 +55,8 @@ def download_files():
                 
 
         elif status != 200:
-            print(f"Problems downloading {download_uris[uri]} (error code {status})")
-            failed_uris.append(download_uris[uri])
+            print(f"Problems downloading {url} (error code {status})")
+            failed_uris.append(url)
             
     
     
