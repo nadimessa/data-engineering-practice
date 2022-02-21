@@ -1,0 +1,18 @@
+def withdraw(amount: int) -> list:
+    
+    notes = [0, 0, 0]
+    
+
+    notes[0] = (amount // 100) 
+    remainder = amount % 100 
+
+    notes[1] = remainder // 50
+    remainder = remainder % 50
+
+    notes[2] = remainder // 20
+    remainder = remainder % 20
+    
+    return notes
+
+
+print(withdraw(260))
