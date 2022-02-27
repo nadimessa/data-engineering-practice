@@ -21,14 +21,13 @@ no_of_downloads = len(download_uris)
 
 def create_downloads_folder(dest_folder="downloads"):
     
-    try:
+    try:           
         if not os.path.exists(dest_folder):
             os.mkdir(dest_folder)  # create folder if it does not exist
-
     except:
         print("An error has occurred, check you have permission to create this folder")
     else:
-        print("Downloads folder created, continuing with downloads...")
+        print(f"{dest_folder} folder has been created, continuing with downloads...")
         download_files(dest_folder)
     
 def download_files(dest_folder):
@@ -45,23 +44,27 @@ def download_files(dest_folder):
             print(f"Successfully downloaded {url}")
             
             filename = myutils.get_filename(url)
-            
             path = os.path.join(dest_folder, filename)
 
             if req.headers.get('content-type') == 'application/zip':
              
                 with open(path, "wb") as file:
                     file.write(req.content)
-                
 
         elif status != 200:
             print(f"Problems downloading {url} (error code {status})")
             failed_uris.append(url)
             
-    
-    
-
 if __name__ == '__main__':
     
-    create_downloads_folder("downloads")
+    answer = input("Would you like to start downloading requested files? y/n ").lower()
+    
+    if answer == "y":
+        answer = input("Enter name of download folder If no folder is given, files will be downloaded to 'downloads' folder: ")
+        if answer != "":
+            create_downloads_folder(answer)
+        else:
+            create_downloads_folder("downloads")
+    else:
+        print("Exiting now.")
     
